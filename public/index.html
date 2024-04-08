@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Node.js Quiz</title>
+    <!-- Include Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col justify-center items-center">
+    <div class="max-w-lg w-full bg-white p-6 rounded-lg shadow-md mb-8">
+        <h1 class="text-3xl font-bold mb-4">Welcome to the Node.js Quiz</h1>
+        <div class="mb-4">
+            <h2 class="text-xl font-semibold mb-2">Instructions:</h2>
+            <ul class="list-disc pl-6">
+                <li>Answer the following multiple-choice questions related to Node.js concepts.</li>
+                <li>Select the best option for each question.</li>
+                <li>Submit your answers using the submit button at the bottom of the page.</li>
+                <li>After submission, you will receive feedback on your answers along with your score.</li>
+            </ul>
+        </div>
+    </div>
+    
+    <form id="quizForm" class="bg-white p-6 rounded-lg shadow-md max-w-lg w-full">
+        <div id="questions" class="space-y-4"></div>
+        <button type="submit" class="mt-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-md">Submit</button>
+    </form>
+
+    <div id="feedback" class="mt-8"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const quizForm = document.getElementById('quizForm');
+            const feedbackContainer = document.getElementById('feedback');
+
+            fetch('/quiz')
+                .then(response => response.json())
+                .then(data => {
+                    const questionsContainer = document.getElementById('questions');
+
+                    data.forEach((question, index) => {
+                        const questionDiv = document.createElement('div');
+                        questionDiv.innerHTML = `
+                            <p class="font-semibold mb-2">Question ${index + 1}:</p>
+                            <p class="mb-2">${question.question}</p>
+                            ${question.options.map((option, optionIndex) => `
+                                <div class="flex items-center mb-2">
+                                    <input type="radio" id="option${index}-${optionIndex}" name="${question.id}" value="${optionIndex}" class="mr-2">
+                                    <label for="option${index}-${optionIndex}">${option}</label>
+                                </div>
+                            `).join('')}
+                            <div id="feedback-${index}" class="text-sm"></div>
+                        `;
+                        questionsContainer.appendChild(questionDiv);
+                    });
+                });
+
+            quizForm.addEventListener('submit', event => {
+                event.preventDefault();
+                const formData = new FormData(event.target);
+                const answers = {};
+
+                for (const [name, value] of formData) {
+                    answers[name] = parseInt(value);
+                }
+
+                fetch('/submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(answers)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const score = data.score;
+                    const feedback = data.feedback;
+                    feedback.forEach((item, index) => {
+                        const feedbackDiv = document.getElementById(`feedback-${index}`);
+                        feedbackDiv.innerHTML = `
+                            <p class="${item.correct ? 'text-green-600' : 'text-red-600'}">${item.correct ? 'Great job! You got it right.' : `Incorrect. The correct answer is: ${item.correctAnswer}`}</p>
+                        `;
+                    });
+                    alert("Your Score: " + score);
+                    feedbackContainer.innerHTML = `<p class="mb-4">Your score: ${score}</p>`;
+                })
+                .catch(error => console.error('Error:', error));
+            });
+        });
+    </script>
+</body>
+</html>

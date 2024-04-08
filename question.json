@@ -1,0 +1,112 @@
+[
+    {
+        "id": 1,
+        "question": "What is Node.js?",
+        "options": [
+            "A runtime environment for JavaScript",
+            "A front-end framework",
+            "A database management system",
+            "A programming language"
+        ],
+        "answer": 0
+    },
+    {
+        "id": 2,
+        "question": "Which of the following is true about event loop in Node.js?",
+        "options": [
+            "It is a loop that iterates through all events",
+            "It is used to handle asynchronous operations",
+            "It only runs once at the start of the program",
+            "It is used for rendering HTML pages"
+        ],
+        "answer": 1
+    },
+    {
+        "id": 3,
+        "question": "What is the purpose of require() function in Node.js?",
+        "options": [
+            "To import external modules",
+            "To create a new function",
+            "To handle HTTP requests",
+            "To define a class"
+        ],
+        "answer": 0
+    },
+    {
+        "id": 4,
+        "question": "Which of the following is a built-in module in Node.js?",
+        "options": [
+            "fs",
+            "http",
+            "express",
+            "mongoose"
+        ],
+        "answer": 0
+    },
+    {
+        "id": 5,
+        "question": "What is the purpose of callback functions in Node.js?",
+        "options": [
+            "To handle errors",
+            "To provide asynchronous control flow",
+            "To define event listeners",
+            "To execute blocking code synchronously"
+        ],
+        "answer": 1
+    },
+    {
+        "id": 6,
+        "question": "Which of the following is NOT a core concept of Node.js?",
+        "options": [
+            "Callbacks",
+            "Event-driven architecture",
+            "Multi-threading",
+            "Non-blocking I/O"
+        ],
+        "answer": 2
+    },
+    {
+        "id": 7,
+        "question": "What does npm stand for?",
+        "options": [
+            "Node Package Manager",
+            "Node Project Manager",
+            "Node Package Module",
+            "Node Project Module"
+        ],
+        "answer": 0
+    },
+    {
+        "id": 8,
+        "question": "Which of the following is used to handle streams in Node.js?",
+        "options": [
+            "fs module",
+            "path module",
+            "http module",
+            "url module"
+        ],
+        "answer": 0
+    },
+    {
+        "id": 9,
+        "question": "What is the main advantage of using Node.js for web development?",
+        "options": [
+            "Ability to use multiple programming languages",
+            "Simplified concurrency model",
+            "Automatic memory management",
+            "Native support for SQL databases"
+        ],
+        "answer": 1
+    },
+    {
+        "id": 10,
+        "question": "Which of the following is NOT true about Node.js?",
+        "options": [
+            "It uses V8 JavaScript engine",
+            "It is single-threaded",
+            "It is limited to web development",
+            "It is highly scalable"
+        ],
+        "answer": 2
+    }
+]
